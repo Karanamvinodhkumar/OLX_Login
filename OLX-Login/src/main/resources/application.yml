@@ -1,0 +1,27 @@
+server:
+  port: 7000
+  
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      base-path: /olx-login
+  endpoint:
+    shutdown:
+      enabled: true  
+spring:  config:    import: configserver:http://localhost:8888    application:    name: auth-server
+  zipkin:    base-url: http://localhost:9411
+logging:  level:    root: INFO
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${random.uuid}
+    hostname: localhost
+  client:    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+     defaultZone: http://${eureka.instance.hostname}:8761/eureka
+                  
+      
+
+
